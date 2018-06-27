@@ -19,5 +19,7 @@ namespace VIidly.Models
         public MembershipType MembershipType { get; set; }
         //foreign Key
         public byte MembershipTypeId { get; set; }
+        public DateTime? Birthdate { get; set; }
+
     }
 }
