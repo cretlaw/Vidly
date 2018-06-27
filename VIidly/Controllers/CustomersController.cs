@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;//Added to use Include for eager loading
 using System.Linq;
 using System.Web.Mvc;
 using VIidly.Models;
@@ -7,9 +8,24 @@ namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+        private ApplicationDbContext _context;
+
+        //DB context needs to be initialized in controller
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        //_context is disposable and we should always Dispose it. We can do so by overriding the base class Dispose method
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
         public ViewResult Index()
         {
-            var customers = GetCustomers();
+            //With this we can get all customer from DB
+            //Include was used for eager loading to load customers and there MembershipType together
+            var customers = _context.Customers.Include(c =>c.MembershipType).ToList();
 
             return View(customers);
         }
@@ -17,7 +33,7 @@ namespace Vidly.Controllers
         public ActionResult Details(int id)
         {
             //LINQ SingleOrDefault returns null if not found on classes
-            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 return HttpNotFound();
@@ -25,13 +41,6 @@ namespace Vidly.Controllers
             return View(customer);
         }
 
-        private IEnumerable<Customer> GetCustomers()
-        {
-            return new List<Customer>
-            {
-                new Customer { Id = 1, Name = "John Smith" },
-                new Customer { Id = 2, Name = "Mary Williams" }
-            };
-        }
+       
     }
 }
