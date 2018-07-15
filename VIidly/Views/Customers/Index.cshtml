@@ -31,11 +31,11 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var customer in Model)
+            @foreach (var customerDto in Model)
             {
                 <tr>
-                    <td>@Html.ActionLink((string)customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
-                    <td>@customer.MembershipType.Name</td>
+                    <td>@Html.ActionLink((string)customerDto.Name, "Edit", "Customers", new { id = customerDto.Id }, null)</td>
+                    <td>@customerDto.MembershipType.Name</td>
                 </tr>
             }
         </tbody>

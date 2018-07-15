@@ -1,10 +1,12 @@
-﻿
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
-namespace VIidly.Models
+namespace VIidly.Dtos
 {
-    public class Movie
+    public class MovieDto
     {
         public int Id { get; set; }
 
@@ -12,24 +14,16 @@ namespace VIidly.Models
         [StringLength(255)]
         public string Name { get; set; }
 
-        
-        public Genre Genre { get; set; }
-
-        
-        [Display (Name ="Genre")]
         [Required]
         public byte GenreId { get; set; }
 
-        [Display(Name="Date Added")]
         public DateTime DateAdded { get; set; }
 
-        
-        [Display(Name = "Realease Date")]
+
         public DateTime ReleaseDate { get; set; }
 
-        
-        [Display(Name = "Number In Stock")]
-        [Range(1,100)]
+
+        [Range(1, 100)]
         public byte NumberInStock { get; set; }
 
     }

@@ -20,5 +20,14 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 278px;
+}
+/*setting styles form validation errors Note: class field-validation-error is default and can be viewed
+    by inspecting element on browser
+*/
+.field-validation-error {
+    color: red !important;
+}
+.input-validation-error {
+    border:2px solid red;
 }

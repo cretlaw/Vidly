@@ -1,10 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using VIidly.App_Start;
 
 namespace VIidly
 {
@@ -12,6 +15,10 @@ namespace VIidly
     {
         protected void Application_Start()
         {
+            //This needs to initialized in order for automapper to work in App_Start/MappingProfile.cs
+            Mapper.Initialize(c => c.AddProfile<MappingProfile>());
+
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
