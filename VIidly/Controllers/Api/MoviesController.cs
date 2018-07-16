@@ -8,7 +8,7 @@ using System.Web.Http;
 using VIidly.Dtos;
 using VIidly.Models;
 
-namespace VIidly.Dtos
+namespace VIidly.Api
 {
     public class MoviesController:ApiController
     {

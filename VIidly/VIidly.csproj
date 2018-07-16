@@ -212,7 +212,7 @@
     <Compile Include="Controllers\RandomMoviesViewModal.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
     <Compile Include="Dtos\MovieDto.cs" />
-    <Compile Include="Dtos\MoviesController.cs" />
+    <Compile Include="Controllers\Api\MoviesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
