@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using VIidly.Dtos;
 using VIidly.Models;
+using System.Data.Entity;
 
-namespace VIidly.Controllers.Api
+namespace Vidly.Controllers.Api
 {
     public class CustomersController : ApiController
     {
@@ -19,42 +17,44 @@ namespace VIidly.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
-        //GET api/customers
+        // GET /api/customers
         public IHttpActionResult GetCustomers()
         {
-            var customerDtos =  _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            var customerDtos = _context.Customers
+                .Include(c => c.MembershipType)
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);
 
             return Ok(customerDtos);
         }
 
-        //GET api/customers/1
+        // GET /api/customers/1
         public IHttpActionResult GetCustomer(int id)
         {
-            var customerDto = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if (customerDto == null)
-                 return NotFound();
+            if (customer == null)
+                return NotFound();
 
-            return Ok(Mapper.Map<Customer, CustomerDto>(customerDto));
+            return Ok(Mapper.Map<Customer, CustomerDto>(customer));
         }
 
-        //POST api/customers
+        // POST /api/customers
         [HttpPost]
         public IHttpActionResult CreateCustomer(CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var customer = Mapper.Map<CustomerDto,Customer>(customerDto);
+            var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
             customerDto.Id = customer.Id;
-
             return Created(new Uri(Request.RequestUri + "/" + customer.Id), customerDto);
         }
 
-        //PUT api/customers/1
+        // PUT /api/customers/1
         [HttpPut]
         public IHttpActionResult UpdateCustomer(int id, CustomerDto customerDto)
         {
@@ -67,15 +67,13 @@ namespace VIidly.Controllers.Api
                 return NotFound();
 
             Mapper.Map(customerDto, customerInDb);
-            
 
             _context.SaveChanges();
 
             return Ok();
-
         }
 
-        //DELETE api/customers/1
+        // DELETE /api/customers/1
         [HttpDelete]
         public IHttpActionResult DeleteCustomer(int id)
         {
@@ -83,11 +81,11 @@ namespace VIidly.Controllers.Api
 
             if (customerInDb == null)
                 return NotFound();
+
             _context.Customers.Remove(customerInDb);
             _context.SaveChanges();
 
             return Ok();
         }
-
     }
 }

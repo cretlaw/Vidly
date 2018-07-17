@@ -16,6 +16,9 @@ namespace VIidly.App_Start
             //Domain to Dto
             Mapper.CreateMap<Customer, CustomerDto>();
             Mapper.CreateMap<Movie,MovieDto>();
+            Mapper.CreateMap<MembershipType, MembershipTypeDto>();
+            Mapper.CreateMap<Genre,GenreDto>();
+
 
             //Dto to Domain Ignoring Id since if can not be changed in domain
             Mapper.CreateMap<CustomerDto, Customer>().ForMember(c => c.Id, opt => opt.Ignore());

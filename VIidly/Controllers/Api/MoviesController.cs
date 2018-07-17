@@ -7,8 +7,9 @@ using System.Net.Http;
 using System.Web.Http;
 using VIidly.Dtos;
 using VIidly.Models;
+using System.Data.Entity;
 
-namespace VIidly.Api
+namespace VIidly.Controllers.Api
 {
     public class MoviesController:ApiController
     {
@@ -22,7 +23,10 @@ namespace VIidly.Api
 
         public IEnumerable<MovieDto> GetMovies()
         {
-            return _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
+            return _context.Movies
+                .Include(m => m.Genre).
+                ToList().
+                Select(Mapper.Map<Movie, MovieDto>);
         }
 
         public IHttpActionResult GetMovie(int id)
