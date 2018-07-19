@@ -35,11 +35,11 @@
     <script>
         $(document).ready(function () {
 
-            var vm = {
+            let   vm = {
                 movieIds: []
             };
 
-            var customers = new Bloodhound({
+            const  customers = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
@@ -59,7 +59,7 @@
                     vm.customerId = customer.id;
                 });
 
-            var movies = new Bloodhound({
+            const movies = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
@@ -91,7 +91,7 @@
                 return vm.movieIds.length > 0;
             }, "Please select at least one movie.");
 
-            var validator = $("#newRental").validate({
+            const  validator = $("#newRental").validate({
                 submitHandler: function () {
                     $.ajax({
                         url: "/api/newRentals",
