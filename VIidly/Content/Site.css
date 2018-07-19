@@ -31,3 +31,14 @@ textarea {
 .input-validation-error {
     border:2px solid red;
 }
+
+.field-validation-error, label.error {
+    color: red !important;
+}
+
+.input-validation-error,input.error {
+    border: 2px solid red;
+}
+#-error {
+    display: none !important;
+}

@@ -15,8 +15,9 @@ namespace VIidly
                 "~/scripts/bootbox.js",
                 "~/Scripts/respond.js",
                 "~/scripts/datatables/jquery.datatables.js",
-                "~/scripts/datatables/datatables.bootstrap4.js"
-                //"~/scripts/datatables/datatables.bootstrap.js
+                "~/scripts/datatables/datatables.bootstrap4.js",
+                "~/scripts/typeahead.bundle.js",
+                "~/scripts/toastr.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -32,9 +33,11 @@ namespace VIidly
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-Lumen.css",
-                      "~/content/datatables/css/datatables.bootstrap4.css",
-                      "~/Content/site.css"));
+                    "~/Content/bootstrap-Lumen.css",
+                    "~/content/datatables/css/datatables.bootstrap4.css",
+                    "~/content/typeahead.css",
+                    "~/content/toastr.css",
+                    "~/Content/site.css"));
         }
     }
-} 
+}
